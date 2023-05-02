@@ -168,6 +168,7 @@ public class ValidationItemControllerV2 {
         //검증 로직
         if (!StringUtils.hasText(item.getItemName())) {
             bindingResult.rejectValue("itemName", "required");
+            // new String[]{"required.item.itemNam", "required"} Level1 이 있으면 Level1 없으면 Level2 로 간다.
         }
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
             bindingResult.rejectValue("price", "range", new Object[]{1000, 1000000}, null);
