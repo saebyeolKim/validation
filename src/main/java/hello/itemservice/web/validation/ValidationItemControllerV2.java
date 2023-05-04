@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -166,6 +167,7 @@ public class ValidationItemControllerV2 {
         log.info("objectName={}", bindingResult.getObjectName());
         log.info("target={}", bindingResult.getTarget());
         //검증 로직
+//        ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required"); 밑의 if 문과 같은 문장
         if (!StringUtils.hasText(item.getItemName())) {
             bindingResult.rejectValue("itemName", "required");
             // new String[]{"required.item.itemNam", "required"} Level1 이 있으면 Level1 없으면 Level2 로 간다.
