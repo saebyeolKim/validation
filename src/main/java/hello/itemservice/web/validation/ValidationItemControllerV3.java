@@ -228,7 +228,13 @@ public class ValidationItemControllerV3 {
     @PostMapping("/add")
     public String addItemV6(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
-        //@Validated item 에 대해 자동으로 검증을 해준다. @initBinder 에 의해
+        //특정 필드가 이닌 복합 룰 검증
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice},null);
+            }
+        }
 
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()){
